@@ -1,0 +1,32 @@
+:host {
+  height: 100%;
+}
+
+.notes-container {
+  position: relative;
+  border: solid 1px yellow;
+  // height: calc(100% - 2rem);
+  height: 100%;
+
+  padding: 2rem;
+  display: grid;
+  gap: 2rem 4rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 14rem);
+}
+
+.note-container {
+  border: solid 1px pink;
+  // height: 10rem;
+  background-color: wheat;
+  color: black;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+
+  p {
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+}
