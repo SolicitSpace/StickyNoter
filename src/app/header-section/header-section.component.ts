@@ -16,7 +16,10 @@ export class HeaderSectionComponent {
   constructor(public dialog: MatDialog) {}
 
   open() {
-    this.dialog.open(AddNewComponent);
+    this.dialog.open(AddNewComponent, {
+      height: '400px',
+      width: '400px',
+    });
 
     // let dialogRef = dialog.open(UserProfileComponent, {
     //   height: '400px',

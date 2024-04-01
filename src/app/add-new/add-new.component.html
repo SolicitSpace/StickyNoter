@@ -1,5 +1,23 @@
-<h2 mat-dialog-title>Dialog with elements</h2>
-<mat-dialog-content>This dialog showcases the title, close, content and actions elements.</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+<h2 mat-dialog-title>Create a new Sticky Note</h2>
+<mat-dialog-content>
+    <p>Fill the note content and click on post to stick the note onto the wall.</p>
+
+
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Note Title (optional)</mat-label>
+            <input matInput placeholder="Ex. Grocery list" value="">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Note Content</mat-label>
+            <textarea matInput placeholder="Ex. 1. Eggs; 2. Cake mix; 3. Frosting"></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="onCancelClick()">Cancel</button>
+    <button mat-button (click)="onPostClick()" cdkFocusInitial>POST IT</button>
 </mat-dialog-actions>

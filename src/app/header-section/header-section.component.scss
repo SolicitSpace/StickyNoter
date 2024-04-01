@@ -1,14 +1,23 @@
 :host {
+  height: 4rem;
+
 }
 .header-container {
   border: solid 1px white;
-  padding: 1rem 0.8rem;
+  padding: 0rem 0.8rem;
   
-  height: 2rem;
+  height: 100%;
   display: flex;
   justify-content: space-between;
 }
 
+.search-container {
+
+  input {
+
+    position: relative;
+  }
+}
 
 .create-new-container {
 

@@ -1,18 +1,17 @@
 :host {
-  height: 100%;
+  height: calc(100% - 4rem);
 }
 
 .notes-container {
   position: relative;
   border: solid 1px yellow;
-  // height: calc(100% - 2rem);
-  height: 100%;
 
   padding: 2rem;
   display: grid;
   gap: 2rem 4rem;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 14rem);
+  grid-auto-rows: 14rem;
+  overflow-y: auto;
 }
 
 .note-container {
@@ -22,7 +21,7 @@
   color: black;
   padding: 1.5rem 1rem;
   overflow-y: auto;
-
+  cursor: pointer;
   p {
     font-weight: 400;
     font-size: 1.5rem;
