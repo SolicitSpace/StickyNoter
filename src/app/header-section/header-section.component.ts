@@ -4,6 +4,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AddNewComponent } from '../add-new/add-new.component';
 import { MatIconModule } from '@angular/material/icon';
+import { NoteDataService } from '../services/note-data.service';
+import { NoteData } from '../../models/data';
 
 @Component({
   selector: 'app-header-section',
@@ -13,17 +15,21 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './header-section.component.scss',
 })
 export class HeaderSectionComponent {
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private noteDataService: NoteDataService
+  ) {}
 
   open() {
-    this.dialog.open(AddNewComponent, {
+    const dialogReg = this.dialog.open(AddNewComponent, {
       height: '400px',
       width: '400px',
+      data: { title: '', content: '' },
     });
 
-    // let dialogRef = dialog.open(UserProfileComponent, {
-    //   height: '400px',
-    //   width: '600px',
-    // });
+    dialogReg.afterClosed().subscribe((res: NoteData) => {
+      console.log('The dialog closed', res);
+      if (res.content) this.noteDataService.addNoteDataToLS(res);
+    });
   }
 }

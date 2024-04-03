@@ -2,16 +2,16 @@
 <mat-dialog-content>
     <p>Fill the note content and click on post to stick the note onto the wall.</p>
 
-
-    <form class="example-form">
+    <form [formGroup]="noteForm">
         <mat-form-field class="example-full-width">
             <mat-label>Note Title (optional)</mat-label>
-            <input matInput placeholder="Ex. Grocery list" value="">
+            <input matInput placeholder="Ex. Grocery list" formControlName="title" [(ngModel)]="data.title">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
             <mat-label>Note Content</mat-label>
-            <textarea matInput placeholder="Ex. 1. Eggs; 2. Cake mix; 3. Frosting"></textarea>
+            <textarea matInput placeholder="Ex. 1. Eggs; 2. Cake mix; 3. Frosting" formControlName="content"
+                [(ngModel)]="data.content" (keydown)="onCancelClick()"></textarea>
         </mat-form-field>
     </form>
 </mat-dialog-content>
@@ -19,5 +19,7 @@
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close (click)="onCancelClick()">Cancel</button>
-    <button mat-button (click)="onPostClick()" cdkFocusInitial>POST IT</button>
+    <button mat-button (click)="onPostClick()"
+    [disabled]="noteForm.status=='INVALID'"
+    >POST IT</button>
 </mat-dialog-actions>
