@@ -47,7 +47,7 @@ export class AddNewComponent {
       Validators.minLength(4),
       NoteContentValidator(/^\s*$/i),
     ]),
-    bgColor: new FormControl("#e6b905", [Validators.required]),
+    bgColor: new FormControl("#feda48", [Validators.required]),
     fontColor: new FormControl("#000000", [Validators.required])
   });
 
