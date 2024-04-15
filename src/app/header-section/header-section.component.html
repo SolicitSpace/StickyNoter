@@ -1,7 +1,16 @@
 <div class="header-container">
 
     <div class="search-container">
-        <input type="text" class="center-vert" placeholder="Search keywords" />
+        <!-- <input type="text" class="center-vert" placeholder="Search keywords" /> -->
+        <mat-form-field class="search-field center-vert">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="searchValue" (keyup)="searchValChanged()">
+            @if (searchValue) {
+              <button matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''; searchValChanged();">
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+          </mat-form-field>
     </div>
 
     <div class="create-new-container">

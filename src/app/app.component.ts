@@ -11,5 +11,11 @@ import { HeaderSectionComponent } from "./header-section/header-section.componen
     imports: [RouterOutlet, NotesContainerComponent, HeaderSectionComponent]
 })
 export class AppComponent {
+
+  searchValue: string = '';
   title = 'StickyNoter';
+
+  setSearchValue(val: string) {    
+    this.searchValue = val;
+  }
 }

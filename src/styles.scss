@@ -24,10 +24,10 @@ $StickyNoter-theme: mat.define-light-theme(
     color: (
       primary: $StickyNoter-primary,
       accent: $StickyNoter-accent,
-      warn: $StickyNoter-warn,
+      warn: $StickyNoter-warn
     ),
     typography: mat.define-typography-config(),
-    density: 0,
+    density: 0
   )
 );
 
@@ -58,4 +58,31 @@ body {
 .center-vert {
   transform: translateY(-50%);
   top: 50%;
+}
+
+// Scrollbar
+/* width */
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  // background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 255px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.search-hlt {
+  background-color: yellow;
 }

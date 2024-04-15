@@ -1,4 +1,4 @@
 <div class="parent-container">
-  <app-header-section></app-header-section>
-  <app-notes-container></app-notes-container>
+  <app-header-section (searchValueEvt)="setSearchValue($event)"></app-header-section>
+  <app-notes-container [searchValue]="searchValue"></app-notes-container>
 </div>

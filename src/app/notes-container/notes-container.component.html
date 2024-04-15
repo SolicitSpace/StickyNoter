@@ -1,12 +1,13 @@
-<div class="notes-container">
-
-
-
-    <div class="note-container" *ngFor="let note of stickyNotesData; index as i">
-      <p>Lorem do Lorem aliqua officia.</p>
-    </div>
-    
-
-
-
+<div
+  class="notes-container"
+  [searchTerm]="searchValue"
+  (searchOutputEvt)="showSearchResults($event)"
+>
+  <note
+    *ngFor="let note of notesData; index as i"
+    notePlacement
+    [style.backgroundColor]="note.bgColor"
+    [style.color]="note.fontColor"
+    [noteData]="note"
+  ></note>
 </div>

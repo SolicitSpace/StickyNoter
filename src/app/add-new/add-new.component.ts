@@ -45,8 +45,10 @@ export class AddNewComponent {
     content: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
-      NoteContentValidator(/^\s*$/i)
+      NoteContentValidator(/^\s*$/i),
     ]),
+    bgColor: new FormControl("#e6b905", [Validators.required]),
+    fontColor: new FormControl("#000000", [Validators.required])
   });
 
   constructor(
@@ -54,11 +56,14 @@ export class AddNewComponent {
     @Inject(MAT_DIALOG_DATA) public data: NoteData
   ) {}
 
-  onCancelClick() {
-    console.log(this.noteForm.status);
-  }
+  onCancelClick() {}
 
   onPostClick() {
+    this.data.title = this.noteForm.controls.title.value as string;
+    this.data.content = this.noteForm.controls.content.value as string;
+    this.data.bgColor = this.noteForm.controls.bgColor.value as string;
+    this.data.fontColor = this.noteForm.controls.fontColor.value as string;
+
     this.dialogRef.close(this.data);
   }
 }

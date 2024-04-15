@@ -1,0 +1,9 @@
+<div class="note-stuck-section" [style.backgroundColor]="noteData.bgColor"></div>
+<div class="note-container" (dblclick)="deleteNote(noteData.id)">
+  <p
+    class="title"
+    *ngIf="noteData.title.trim().length > 0"
+    [innerHTML]="noteData.title"
+  ></p>
+  <p class="content" [innerHTML]="noteData.content"></p>
+</div>

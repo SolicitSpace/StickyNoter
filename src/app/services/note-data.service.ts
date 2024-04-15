@@ -13,17 +13,40 @@ export class NoteDataService {
   }
 
   addNoteDataToLS(noteData: NoteData) {
-    this.initStickyNotesData();
-    let stickyNotesData: Object[] = JSON.parse(
-      localStorage.getItem('StickyNotesData') as string
-    );
+    let notesData: NoteData[] = this.getNoteDataFromLS();
+    noteData.id = Date.now();
+    notesData.push(noteData);
+    localStorage.setItem('StickyNotesData', JSON.stringify(notesData));
 
-    stickyNotesData.push(noteData);
-    localStorage.setItem('StickyNotesData', JSON.stringify(stickyNotesData));
+    window.dispatchEvent(new Event('storage'));
   }
 
   getNoteDataFromLS(): NoteData[] {
     this.initStickyNotesData();
     return JSON.parse(localStorage.getItem('StickyNotesData') as string);
+  }
+
+  setNotePlacementFromLS(noteData: NoteData) {
+    // get the id
+    const notesData = this.getNoteDataFromLS();
+
+    let index = notesData.findIndex(
+      (note: NoteData) => note.id === noteData.id
+    );
+
+    notesData[index].placement = noteData.placement;
+    localStorage.setItem('StickyNotesData', JSON.stringify(notesData));
+  }
+
+  deleteNoteFromLS(noteId: number) {
+    const notesData = this.getNoteDataFromLS();
+
+    notesData.splice(
+      notesData.findIndex((note: NoteData) => note.id === noteId),
+      1
+    );
+    localStorage.setItem('StickyNotesData', JSON.stringify(notesData));
+
+    window.dispatchEvent(new Event('storage'));
   }
 }

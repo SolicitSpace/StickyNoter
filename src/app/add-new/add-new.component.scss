@@ -1,6 +1,31 @@
 mat-form-field {
-    width: 100%;
+  width: 100%;
 }
 button {
   margin-right: 8px;
+}
+
+// table {
+//   display: block;
+//   width: 100%;
+
+//   tr {
+//     display: block;
+//     width: 100%;
+
+//     td {
+//       display: inline-block;
+//       width: 49%;
+//     }
+//   }
+// }
+
+.colors-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  > div {
+    width: 47%;
+    cursor: pointer;
+  }
 }

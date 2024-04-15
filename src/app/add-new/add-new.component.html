@@ -1,25 +1,49 @@
 <h2 mat-dialog-title>Create a new Sticky Note</h2>
 <mat-dialog-content>
-    <p>Fill the note content and click on post to stick the note onto the wall.</p>
+  <!-- <p>
+    Fill the note content and click on post to stick the note onto the wall.
+  </p> -->
 
-    <form [formGroup]="noteForm">
+  <form [formGroup]="noteForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Note Title (optional)</mat-label>
+      <input matInput placeholder="Ex. Grocery list" formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Note Content</mat-label>
+      <textarea matInput placeholder="Ex. 1. Eggs; 2. Cake mix; 3. Frosting" formControlName="content"></textarea>
+    </mat-form-field>
+
+
+
+    <div class="colors-container">
+
+      <div class="bg-color-container">
         <mat-form-field class="example-full-width">
-            <mat-label>Note Title (optional)</mat-label>
-            <input matInput placeholder="Ex. Grocery list" formControlName="title" [(ngModel)]="data.title">
+          <mat-label>Background Color</mat-label>
+
+          <input matInput type="color" id="body" name="body" formControlName="bgColor" />
         </mat-form-field>
+      </div>
+
+      <div class="font-color-container">
 
         <mat-form-field class="example-full-width">
-            <mat-label>Note Content</mat-label>
-            <textarea matInput placeholder="Ex. 1. Eggs; 2. Cake mix; 3. Frosting" formControlName="content"
-                [(ngModel)]="data.content" (keydown)="onCancelClick()"></textarea>
+          <mat-label>Font Color</mat-label>
+
+          <input matInput type="color" id="body" name="body" formControlName="fontColor" />
         </mat-form-field>
-    </form>
+      </div>
+    </div>
+
+
+  </form>
 </mat-dialog-content>
 
-
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close (click)="onCancelClick()">Cancel</button>
-    <button mat-button (click)="onPostClick()"
-    [disabled]="noteForm.status=='INVALID'"
-    >POST IT</button>
+  <button mat-button mat-dialog-close (click)="onCancelClick()">Cancel</button>
+  <button mat-button (click)="onPostClick()" [disabled]="noteForm.status == 'INVALID'">
+    POST IT
+  </button>
 </mat-dialog-actions>
