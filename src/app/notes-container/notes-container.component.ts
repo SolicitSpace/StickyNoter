@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NoteDataService } from '../services/note-data.service';
 import { NoteData } from '../../models/data';
 import { CommonModule } from '@angular/common';
@@ -21,15 +28,31 @@ import { SearchNotesDirective } from '../directives/search-notes.directive';
 export class NotesContainerComponent implements OnInit {
   notesData!: NoteData[];
   @Input() searchValue!: string;
-  
+  @ViewChild('notesContainer', { static: true }) notesContainer!: ElementRef;
+
   constructor(private noteDataService: NoteDataService) {}
 
   ngOnInit() {
-    console.log(this.noteDataService.getNoteDataFromLS());
-
     this.getAndSetStickyNotesData();
     this.onStorageChangeListener();
+  }
 
+  ngAfterViewInit() {
+    this.reAdjustGridColumns();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.reAdjustGridColumns();
+  }
+
+  reAdjustGridColumns() {
+    const noteWidth = this.notesContainer.nativeElement.children[0].offsetWidth;
+    const numOfCol = Math.max(
+      Math.floor(window.innerWidth / noteWidth - 0.5),
+      1
+    ); // added 0.5 adjuster to account for the grid gap
+    this.notesContainer.nativeElement.style.gridTemplateColumns = `repeat(${numOfCol}, 1fr)`;
   }
 
   onStorageChangeListener() {
@@ -44,6 +67,5 @@ export class NotesContainerComponent implements OnInit {
 
   showSearchResults(notesData: NoteData[]) {
     this.notesData = notesData;
-
   }
 }

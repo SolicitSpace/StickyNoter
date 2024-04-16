@@ -1,13 +1,5 @@
-<div
-  class="notes-container"
-  [searchTerm]="searchValue"
-  (searchOutputEvt)="showSearchResults($event)"
->
-  <note
-    *ngFor="let note of notesData; index as i"
-    notePlacement
-    [style.backgroundColor]="note.bgColor"
-    [style.color]="note.fontColor"
-    [noteData]="note"
-  ></note>
+<div #notesContainer class="notes-container" [searchTerm]="searchValue" (searchOutputEvt)="showSearchResults($event)">
+
+  <note *ngFor="let note of notesData; index as i" notePlacement [style.backgroundColor]="note.bgColor"
+    [style.color]="note.fontColor" [noteData]="note"></note>
 </div>
