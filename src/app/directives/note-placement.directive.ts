@@ -23,11 +23,11 @@ export class NotePlacementDirective implements OnInit {
 
   @HostListener('mouseover') onMouseOver() {
     this.elRef.nativeElement.style.transform = `rotate(0)`;
-    this.elRef.nativeElement.style.overflowY = `auto`;
+    // this.elRef.nativeElement.style.overflowY = `auto`;
   }
   @HostListener('mouseout') onMouseOut() {
     this.elRef.nativeElement.style.transform = this.morphedRotVal;
-    this.elRef.nativeElement.style.overflowY = `hidden`;
+    // this.elRef.nativeElement.style.overflowY = `hidden`;
     this.elRef.nativeElement.scrollTop = 0;
   }
 

@@ -1,9 +1,25 @@
 <div class="note-stuck-section" [style.backgroundColor]="noteData.bgColor"></div>
-<div class="note-container" (dblclick)="deleteNote(noteData.id)">
-  <p
-    class="title"
-    *ngIf="noteData.title.trim().length > 0"
-    [innerHTML]="noteData.title"
-  ></p>
+<div class="menu-container">
+  <button class="menu-btn" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>star</mat-icon>
+      <span>Mark as Starred</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+    <button mat-menu-item (click)="deleteNote(noteData.id)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </mat-menu>
+</div>
+
+<div class="note-container" >
+  <p class="title" *ngIf="noteData.title.trim().length > 0" [innerHTML]="noteData.title"></p>
   <p class="content" [innerHTML]="noteData.content"></p>
 </div>
