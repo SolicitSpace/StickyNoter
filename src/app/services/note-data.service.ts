@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NoteData } from '../../models/data';
+import _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +13,28 @@ export class NoteDataService {
       localStorage.setItem('StickyNotesData', '[]');
   }
 
+  setNotesDataLS(notesData: NoteData[]) {
+    localStorage.setItem('StickyNotesData', JSON.stringify(notesData));
+  }
+
   addNoteDataToLS(noteData: NoteData) {
     let notesData: NoteData[] = this.getNoteDataFromLS();
     noteData.id = Date.now();
     notesData.push(noteData);
-    localStorage.setItem('StickyNotesData', JSON.stringify(notesData));
-
+    // localStorage.setItem('StickyNotesData', JSON.stringify(notesData));
+    this.setNotesDataLS(notesData);
     window.dispatchEvent(new Event('storage'));
+  }
+
+  /**
+   * Updating already existing data to LS via edit fn
+   */
+  updateNoteDataToLS(noteData: NoteData) {
+    // with id we splice and push
+    const notesData = this.getNoteDataFromLS();
+    const noteIndex = _.findIndex(notesData, { id: noteData.id });
+    notesData[noteIndex] = noteData;
+    this.setNotesDataLS(notesData);
   }
 
   getNoteDataFromLS(): NoteData[] {

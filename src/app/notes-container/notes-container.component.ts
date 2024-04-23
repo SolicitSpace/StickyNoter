@@ -46,13 +46,19 @@ export class NotesContainerComponent implements OnInit {
     this.reAdjustGridColumns();
   }
 
+  /**
+   * Function for setting number of columns to be allowed as per screen size
+   * @returns 
+   */
   reAdjustGridColumns() {
-    const noteWidth = this.notesContainer.nativeElement.children[0].offsetWidth;
+    const notesContainer = this.notesContainer.nativeElement;
+    if (notesContainer.children.length == 0) return;
+    const noteWidth = notesContainer.children[0].offsetWidth;
     const numOfCol = Math.max(
       Math.floor(window.innerWidth / noteWidth - 0.5),
       1
     ); // added 0.5 adjuster to account for the grid gap
-    this.notesContainer.nativeElement.style.gridTemplateColumns = `repeat(${numOfCol}, 1fr)`;
+    notesContainer.style.gridTemplateColumns = `repeat(${numOfCol}, 1fr)`;
   }
 
   onStorageChangeListener() {

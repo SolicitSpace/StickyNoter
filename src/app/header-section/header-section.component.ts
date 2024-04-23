@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { AddNewComponent } from '../add-new/add-new.component';
+import { AddNewComponent } from '../dialog-boxes/add-new/add-new.component';
 import { MatIconModule } from '@angular/material/icon';
 import { NoteDataService } from '../services/note-data.service';
 import { NoteData } from '../../models/data';
@@ -36,7 +36,7 @@ export class HeaderSectionComponent {
     this.searchValueEvt.emit(this.searchValue);
   }
 
-  open() {
+  openAddNote() {
     const dialogReg = this.dialog.open(AddNewComponent, {
       height: '400px',
       width: '400px',

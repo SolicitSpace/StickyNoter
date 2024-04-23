@@ -1,6 +1,5 @@
 import {
   Directive,
-  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -18,14 +17,15 @@ export class SearchNotesDirective implements OnChanges {
   @Input() searchTerm!: string;
   @Output() searchOutputEvt = new EventEmitter<NoteData[]>();
 
-  constructor(
-    private elRef: ElementRef,
-    private noteDataService: NoteDataService
-  ) {}
+  constructor(private noteDataService: NoteDataService) {}
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.hasOwnProperty('searchTerm')) return;
 
     const notesData = this.noteDataService.getNoteDataFromLS();
+    if (this.searchTerm.trim() == '') {
+      this.searchOutputEvt.emit(notesData);
+      return;
+    }
 
     let searchResultData: NoteData[] = [];
 
