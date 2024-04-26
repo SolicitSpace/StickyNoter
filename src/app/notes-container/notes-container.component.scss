@@ -26,6 +26,11 @@
     transition: all 0.1s ease-in;
     width: 19rem;
     margin: 0 auto;
+
+
+    &.dragover {
+      opacity: 0;
+    }
   }
 }
  

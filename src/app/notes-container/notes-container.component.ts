@@ -74,4 +74,47 @@ export class NotesContainerComponent implements OnInit {
   showSearchResults(notesData: NoteData[]) {
     this.notesData = notesData;
   }
+
+
+  ////--------------------------------------------
+  ////--------------------------------------------
+  draggedNote!: NoteData;
+
+  onNoteDragStart(noteData: NoteData) {
+    console.log("Dragging start");    
+    this.draggedNote = noteData;
+
+    
+
+//     months.splice(1, 0, months[3]);
+// // Inserts at index 1
+// console.log(months);
+
+// months.splice(4, 1);
+
+  }
+  onNoteDragEnd(noteData: NoteData) {
+    // console.log("Dragging end", noteData);    
+
+  }
+  onNoteDragEnter(noteData: NoteData) {
+    if (noteData.id == this.draggedNote.id) return;
+    console.log("Dragging enter", noteData);    
+
+  }
+  onNoteDragOver(noteData: NoteData) {
+    if (noteData.id == this.draggedNote.id) return;
+    console.log("Dragging enter", noteData);    
+  }
+  onNoteDragLeave(noteData: NoteData, evt: Event, noteTemplateRef: NoteComponent) {
+    if (noteData.id == this.draggedNote.id) return;
+    // console.log("Dragging Leave", noteData, evt, noteTemplateRef);    
+
+  }
+  onNoteDragDrop(noteData: NoteData) {
+    if (noteData.id == this.draggedNote.id) return;
+
+  }
+
+
 }
