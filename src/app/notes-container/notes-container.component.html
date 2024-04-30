@@ -6,10 +6,9 @@
     #noteTemplateRef
     draggable="true" 
     (dragstart)="onNoteDragStart(note)"
-    (dragend)="onNoteDragEnd(note)"
-    (dragenter)="onNoteDragEnter(note)"
-    (dragleave)="onNoteDragLeave(note, $event, noteTemplateRef)"
+    (dragenter)="onNoteDragEnter($event, note)"
+    (dragover)="onNoteDragOver($event, note)"
+    (drop)="onNoteDragDrop(note)"
     ></note>
-
     
 </div>

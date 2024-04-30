@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { NoteComponent } from './note/note.component';
 import { NotePlacementDirective } from '../directives/note-placement.directive';
 import { SearchNotesDirective } from '../directives/search-notes.directive';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-notes-container',
@@ -48,7 +49,7 @@ export class NotesContainerComponent implements OnInit {
 
   /**
    * Function for setting number of columns to be allowed as per screen size
-   * @returns 
+   * @returns
    */
   reAdjustGridColumns() {
     const notesContainer = this.notesContainer.nativeElement;
@@ -75,46 +76,45 @@ export class NotesContainerComponent implements OnInit {
     this.notesData = notesData;
   }
 
-
   ////--------------------------------------------
   ////--------------------------------------------
   draggedNote!: NoteData;
+  targetNote!: NoteData;
 
   onNoteDragStart(noteData: NoteData) {
-    console.log("Dragging start");    
+    // setting the dragged note
     this.draggedNote = noteData;
-
-    
-
-//     months.splice(1, 0, months[3]);
-// // Inserts at index 1
-// console.log(months);
-
-// months.splice(4, 1);
-
   }
-  onNoteDragEnd(noteData: NoteData) {
-    // console.log("Dragging end", noteData);    
-
-  }
-  onNoteDragEnter(noteData: NoteData) {
+  onNoteDragEnter(event: Event, noteData: NoteData) {
+    event.preventDefault();
+    // Avoiding note triggering drag enter on self
     if (noteData.id == this.draggedNote.id) return;
-    console.log("Dragging enter", noteData);    
-
+    // console.log("Dragging enter", noteData);
+    this.targetNote = noteData;
   }
-  onNoteDragOver(noteData: NoteData) {
-    if (noteData.id == this.draggedNote.id) return;
-    console.log("Dragging enter", noteData);    
-  }
-  onNoteDragLeave(noteData: NoteData, evt: Event, noteTemplateRef: NoteComponent) {
-    if (noteData.id == this.draggedNote.id) return;
-    // console.log("Dragging Leave", noteData, evt, noteTemplateRef);    
-
+  onNoteDragOver(event: Event, noteData: NoteData) {
+    // Required for the drop event to trigger
+    event.preventDefault();
   }
   onNoteDragDrop(noteData: NoteData) {
+    // Avoiding if the note dragged dropped on self
     if (noteData.id == this.draggedNote.id) return;
 
+    // getting the indexes
+    const draggedNoteIndex = _.findIndex(this.notesData, {
+      id: this.draggedNote.id,
+    });
+    const targetNoteIndex = _.findIndex(this.notesData, {
+      id: this.targetNote.id,
+    });
+
+    // Swapping the pos of dragged notes with the target/dragged-dropped note
+    [this.notesData[draggedNoteIndex], this.notesData[targetNoteIndex]] = [
+      this.notesData[targetNoteIndex],
+      this.notesData[draggedNoteIndex],
+    ];
+
+    // saving in localstorage
+    this.noteDataService.setNotesDataLS(this.notesData);
   }
-
-
 }
