@@ -20,6 +20,7 @@ export class NoteDataService {
   addNoteDataToLS(noteData: NoteData) {
     let notesData: NoteData[] = this.getNoteDataFromLS();
     noteData.id = Date.now();
+    noteData.isStarred = false;
     notesData.push(noteData);
     // localStorage.setItem('StickyNotesData', JSON.stringify(notesData));
     this.setNotesDataLS(notesData);

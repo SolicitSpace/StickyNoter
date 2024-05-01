@@ -17,7 +17,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class NoteComponent {
   @Input() noteData!: NoteData;
 
-  constructor(public dialog: MatDialog, private noteDataService: NoteDataService) {}
+  constructor(
+    public dialog: MatDialog,
+    private noteDataService: NoteDataService
+  ) {}
 
   deleteNote(noteId: number) {
     this.noteDataService.deleteNoteFromLS(noteId);
@@ -36,5 +39,11 @@ export class NoteComponent {
         this.noteDataService.updateNoteDataToLS(res);
       }
     });
+  }
+
+  markNoteAsStarred() {
+    this.noteData.isStarred = !this.noteData.isStarred;
+
+    this.noteDataService.updateNoteDataToLS(this.noteData);
   }
 }

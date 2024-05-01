@@ -1,25 +1,33 @@
 <div class="note-stuck-section" [style.backgroundColor]="noteData.bgColor"></div>
-<div class="menu-container">
-  <button class="menu-btn" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-      <mat-icon>star</mat-icon>
-      <span>Mark as Starred</span>
+<div class="note-top-section">
+
+  <div class="star-container" >
+    <mat-icon *ngIf="noteData.isStarred">stars</mat-icon>
+  </div>
+
+  <div class="menu-container">
+    <button class="menu-btn" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
     </button>
-    <button mat-menu-item (click)="openEditNote()">
-      <mat-icon>edit</mat-icon>
-      <span>Edit</span>
-    </button>
-    <button mat-menu-item (click)="deleteNote(noteData.id)">
-      <mat-icon>delete</mat-icon>
-      <span>Delete</span>
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="markNoteAsStarred()">
+        <mat-icon>star</mat-icon>
+        <span *ngIf="!noteData.isStarred">Mark as Starred</span>
+        <span *ngIf="noteData.isStarred">Unmark as Starred</span>
+      </button>
+      <button mat-menu-item (click)="openEditNote()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="deleteNote(noteData.id)">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </div>
 </div>
 
-<div class="note-container" >
+<div class="note-container">
   <p class="title" *ngIf="noteData.title.trim().length > 0" [innerHTML]="noteData.title"></p>
   <p class="content" [innerHTML]="noteData.content"></p>
 </div>

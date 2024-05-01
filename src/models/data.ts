@@ -5,4 +5,5 @@ export interface NoteData {
   bgColor: string;
   fontColor: string;
   placement: string;
+  isStarred: boolean;
 }
