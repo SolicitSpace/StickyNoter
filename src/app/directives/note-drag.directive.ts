@@ -16,15 +16,9 @@ export class NoteDragDirective implements OnInit {
   constructor(
     private host: NoteComponent,
     private noteDataService: NoteDataService
-  ) {
-    setTimeout(() => {
-      console.log('init', this.host.noteData.id);
-    }, 250);
-  }
+  ) {}
 
   ngOnInit() {}
-
-  
 
   // This one is written in notes-container.component as we needed it
   // in outer scope

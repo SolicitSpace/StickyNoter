@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NoteDataService } from '../services/note-data.service';
 import { NoteData } from '../../models/data';
 import { CommonModule } from '@angular/common';
@@ -14,6 +7,7 @@ import { NotePlacementDirective } from '../directives/note-placement.directive';
 import { SearchNotesDirective } from '../directives/search-notes.directive';
 import _ from 'lodash';
 import { NoteDragDirective } from '../directives/note-drag.directive';
+import { NoteContainerAdjustGridColDirective } from '../directives/note-container-adjust-grid-col.directive';
 
 @Component({
   selector: 'app-notes-container',
@@ -25,13 +19,13 @@ import { NoteDragDirective } from '../directives/note-drag.directive';
     NoteComponent,
     NotePlacementDirective,
     NoteDragDirective,
+    NoteContainerAdjustGridColDirective,
     SearchNotesDirective,
   ],
 })
 export class NotesContainerComponent implements OnInit {
   notesData!: NoteData[];
   @Input() searchValue!: string;
-  @ViewChild('notesContainer', { static: true }) notesContainer!: ElementRef;
   draggedNote!: NoteData;
 
   constructor(private noteDataService: NoteDataService) {}
@@ -39,30 +33,6 @@ export class NotesContainerComponent implements OnInit {
   ngOnInit() {
     this.getAndSetStickyNotesData();
     this.onStorageChangeListener();
-  }
-
-  ngAfterViewInit() {
-    this.reAdjustGridColumns();
-  }
-
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.reAdjustGridColumns();
-  }
-
-  /**
-   * Function for setting number of columns to be allowed as per screen size
-   * @returns
-   */
-  reAdjustGridColumns() {
-    const notesContainer = this.notesContainer.nativeElement;
-    if (notesContainer.children.length == 0) return;
-    const noteWidth = notesContainer.children[0].offsetWidth;
-    const numOfCol = Math.max(
-      Math.floor(window.innerWidth / noteWidth - 0.5),
-      1
-    ); // added 0.5 adjuster to account for the grid gap
-    notesContainer.style.gridTemplateColumns = `repeat(${numOfCol}, 1fr)`;
   }
 
   onStorageChangeListener() {
