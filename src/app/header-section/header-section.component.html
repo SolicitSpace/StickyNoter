@@ -1,21 +1,29 @@
 <div class="header-container">
 
-    <div class="search-container">
-        <!-- <input type="text" class="center-vert" placeholder="Search keywords" /> -->
-        <mat-form-field class="search-field center-vert">
-            <mat-label>Search</mat-label>
-            <input matInput type="text" [(ngModel)]="searchValue" (keyup)="searchValChanged()">
-            @if (searchValue) {
-              <button matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''; searchValChanged();">
-                <mat-icon>close</mat-icon>
-              </button>
-            }
-          </mat-form-field>
-    </div>
+  <div class="search-container">
+    <!-- <input type="text" class="center-vert" placeholder="Search keywords" /> -->
+    <mat-form-field class="search-field center-vert">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" [(ngModel)]="searchValue" (keyup)="searchValChanged()">
+      @if (searchValue) {
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''; searchValChanged();">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+  </div>
 
-    <div class="create-new-container">
-        <button mat-mini-fab color="accent" class="center-vert" (click)="openAddNote()">
-            <mat-icon>add</mat-icon>
-        </button>
-    </div>
+  <div class="app-title-container">
+    
+    <p>
+      <mat-icon>note</mat-icon>
+      Sticky Note<span>r</span>
+    </p>
+  </div>
+
+  <div class="create-new-container">
+    <button mat-mini-fab color="primary" class="center-vert" (click)="openAddNote()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>
