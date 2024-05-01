@@ -15,7 +15,6 @@
 
   note {
     position: relative;
-    border: solid 1px pink;
     // height: 10rem;
     background-color: wheat;
     color: black;
@@ -32,5 +31,14 @@
       opacity: 0;
     }
   }
+}
+
+
+.drag-start {
+  border: solid 2px red;
+}
+.drag-enter{
+  border: solid 2px blue;
+  opacity: 0.65;
 }
  

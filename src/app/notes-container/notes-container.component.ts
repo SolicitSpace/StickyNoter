@@ -13,6 +13,7 @@ import { NoteComponent } from './note/note.component';
 import { NotePlacementDirective } from '../directives/note-placement.directive';
 import { SearchNotesDirective } from '../directives/search-notes.directive';
 import _ from 'lodash';
+import { NoteDragDirective } from '../directives/note-drag.directive';
 
 @Component({
   selector: 'app-notes-container',
@@ -23,6 +24,7 @@ import _ from 'lodash';
     CommonModule,
     NoteComponent,
     NotePlacementDirective,
+    NoteDragDirective,
     SearchNotesDirective,
   ],
 })
@@ -30,6 +32,7 @@ export class NotesContainerComponent implements OnInit {
   notesData!: NoteData[];
   @Input() searchValue!: string;
   @ViewChild('notesContainer', { static: true }) notesContainer!: ElementRef;
+  draggedNote!: NoteData;
 
   constructor(private noteDataService: NoteDataService) {}
 
@@ -76,45 +79,8 @@ export class NotesContainerComponent implements OnInit {
     this.notesData = notesData;
   }
 
-  ////--------------------------------------------
-  ////--------------------------------------------
-  draggedNote!: NoteData;
-  targetNote!: NoteData;
-
-  onNoteDragStart(noteData: NoteData) {
-    // setting the dragged note
+  // setting the dragged note
+  onNoteDragStart(event: any, noteData: NoteData) {
     this.draggedNote = noteData;
-  }
-  onNoteDragEnter(event: Event, noteData: NoteData) {
-    event.preventDefault();
-    // Avoiding note triggering drag enter on self
-    if (noteData.id == this.draggedNote.id) return;
-    // console.log("Dragging enter", noteData);
-    this.targetNote = noteData;
-  }
-  onNoteDragOver(event: Event, noteData: NoteData) {
-    // Required for the drop event to trigger
-    event.preventDefault();
-  }
-  onNoteDragDrop(noteData: NoteData) {
-    // Avoiding if the note dragged dropped on self
-    if (noteData.id == this.draggedNote.id) return;
-
-    // getting the indexes
-    const draggedNoteIndex = _.findIndex(this.notesData, {
-      id: this.draggedNote.id,
-    });
-    const targetNoteIndex = _.findIndex(this.notesData, {
-      id: this.targetNote.id,
-    });
-
-    // Swapping the pos of dragged notes with the target/dragged-dropped note
-    [this.notesData[draggedNoteIndex], this.notesData[targetNoteIndex]] = [
-      this.notesData[targetNoteIndex],
-      this.notesData[draggedNoteIndex],
-    ];
-
-    // saving in localstorage
-    this.noteDataService.setNotesDataLS(this.notesData);
   }
 }
